@@ -71,24 +71,64 @@
     camera.attachControl(canvas, true);
 
     // This creates a light, aiming 0,1,0 - to the sky (non-mesh)
-    var light = new BABYLON.HemisphericLight("light", new BABYLON.Vector3(0, 1, 0), scene);
+    var light = new BABYLON.HemisphericLight("light", new BABYLON.Vector3(1, 1, 0), scene);
 
     // Default intensity is 1. Let's dim the light a small amount
-    light.intensity = 0.7;
+    light.intensity = 1;
 
 
+    var ground = BABYLON.MeshBuilder.CreateGround("ground", {width: 6, height: 6}, scene);
+    let groundMaterial = new BABYLON.StandardMaterial("Ground Material", scene);
+    ground.material = groundMaterial;
+    let groundTexture = new BABYLON.Texture(Assets.textures.checkerboard_basecolor_png.path, scene);
+    ground.material.diffuseTexture = groundTexture;
 
-    // Our built-in 'ground' shape.
-    var ground = BABYLON.MeshBuilder.CreateGround("ground", {width: 20, height: 6}, scene);
+    var mat1 = new BABYLON.StandardMaterial("mat1", scene);
+	mat1.diffuseTexture = new BABYLON.Texture("./Texturas/oruga.jpg", scene);
+	mat1.bumpTexture = new BABYLON.Texture("./Texturas/oruga.jpg", scene);
+    mat1.invertNormalMapX = true;
+    mat1.invertNormalMapY = true;
 
     BABYLON.SceneLoader.ImportMeshAsync("", "./Mallas/", "OrugaAgroCura1.glb").then((result) => {
-    	result.meshes[0].position.x = 1;
-        result.meshes[0].scaling.x = 0.5;
-        result.meshes[0].scaling.y = 0.5;
-        result.meshes[0].scaling.z = 0.5;
-        result.meshes[0].material = roofMat;
+        malla = result.meshes[0];
+        malla.position.y = 0.15;
+        malla.scaling.x = 0.2;
+        malla.scaling.y = 0.2;
+        malla.scaling.z = 0.2;
     });
 
+    BABYLON.SceneLoader.ImportMeshAsync("", "./Mallas/", "nina.glb").then((result) => {
+        malla = result.meshes[0];
+        malla.position.x = -2;
+        malla.position.y = 0.55;
+        malla.position.z = 1.5;
+        malla.scaling.x = 0.1;
+        malla.scaling.y = 0.1;
+        malla.scaling.z = 0.1;
+        malla.rotate(new BABYLON.Vector3(0, 1, 0),  80);
+    });
+
+    BABYLON.SceneLoader.ImportMeshAsync("", "./Mallas/", "PenguinBaseMesh.glb").then((result) => {
+        malla = result.meshes[0];
+        malla.position.x = 1.8;
+        malla.position.z = 1.4;
+        malla.scaling.x = 0.005;
+        malla.scaling.y = 0.005;
+        malla.scaling.z = 0.005;
+        malla.rotate(new BABYLON.Vector3(0, -1, 0),  80);
+        result.meshes[1].material = mat1;
+    });
+
+    BABYLON.SceneLoader.ImportMeshAsync("", "./Mallas/", "Ant.glb").then((result) => {
+        malla = result.meshes[0];
+        malla.position.z = 2.8;
+        malla.scaling.x = 0.0025;
+        malla.scaling.y = 0.0025;
+        malla.scaling.z = 0.0025;
+        result.meshes[1].material = mat1;
+    });
+
+    
     return scene;
 };
                 window.initFunction = async function() {
