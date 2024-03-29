@@ -79,25 +79,25 @@
 
     var ground = BABYLON.MeshBuilder.CreateGround("ground", {width: 6, height: 6}, scene);
     let groundMaterial = new BABYLON.StandardMaterial("Ground Material", scene);
+    groundMaterial.diffuseColor = BABYLON.Color3.Gray();
     ground.material = groundMaterial;
-    let groundTexture = new BABYLON.Texture(Assets.textures.checkerboard_basecolor_png.path, scene);
-    ground.material.diffuseTexture = groundTexture;
 
     var mat1 = new BABYLON.StandardMaterial("mat1", scene);
-	mat1.diffuseTexture = new BABYLON.Texture("./Texturas/oruga.jpg", scene);
-	mat1.bumpTexture = new BABYLON.Texture("./Texturas/oruga.jpg", scene);
+	mat1.diffuseTexture = new BABYLON.Texture("https://david03092005.github.io/BabylonJS/Texturas/oruga.jpg", scene);
+	mat1.bumpTexture = new BABYLON.Texture("https://david03092005.github.io/BabylonJS/Texturas/oruga.jpg", scene);
     mat1.invertNormalMapX = true;
     mat1.invertNormalMapY = true;
 
-    BABYLON.SceneLoader.ImportMeshAsync("", "./Mallas/", "OrugaAgroCura1.glb").then((result) => {
+    BABYLON.SceneLoader.ImportMeshAsync("", "https://david03092005.github.io/BabylonJS/Mallas/", "OrugaAgroCura1.glb").then((result) => {
         malla = result.meshes[0];
         malla.position.y = 0.15;
         malla.scaling.x = 0.2;
         malla.scaling.y = 0.2;
         malla.scaling.z = 0.2;
+        //malla1.material = roofMat;
     });
 
-    BABYLON.SceneLoader.ImportMeshAsync("", "./Mallas/", "nina.glb").then((result) => {
+    BABYLON.SceneLoader.ImportMeshAsync("", "https://david03092005.github.io/BabylonJS/Mallas/", "nina.glb").then((result) => {
         malla = result.meshes[0];
         malla.position.x = -2;
         malla.position.y = 0.55;
@@ -108,7 +108,7 @@
         malla.rotate(new BABYLON.Vector3(0, 1, 0),  80);
     });
 
-    BABYLON.SceneLoader.ImportMeshAsync("", "./Mallas/", "PenguinBaseMesh.glb").then((result) => {
+    BABYLON.SceneLoader.ImportMeshAsync("", "https://david03092005.github.io/BabylonJS/Mallas/", "PenguinBaseMesh.glb").then((result) => {
         malla = result.meshes[0];
         malla.position.x = 1.8;
         malla.position.z = 1.4;
@@ -119,7 +119,7 @@
         result.meshes[1].material = mat1;
     });
 
-    BABYLON.SceneLoader.ImportMeshAsync("", "./Mallas/", "Ant.glb").then((result) => {
+    BABYLON.SceneLoader.ImportMeshAsync("", "https://david03092005.github.io/BabylonJS/Mallas/", "Ant.glb").then((result) => {
         malla = result.meshes[0];
         malla.position.z = 2.8;
         malla.scaling.x = 0.0025;
@@ -128,7 +128,7 @@
         result.meshes[1].material = mat1;
     });
 
-    
+
     return scene;
 };
                 window.initFunction = async function() {
